@@ -7,7 +7,7 @@
     <version>7</version>
   </parent>
   <groupId>edu.washington.cs.knowitall</groupId>
-  <artifactId>openregex-scala</artifactId>
+  <artifactId>openregex-scala_2.9.2</artifactId>
   <version>1.0.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>openregex</name>

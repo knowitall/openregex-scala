@@ -17,6 +17,10 @@ class Pattern[E](val regex: RegularExpression[E]) {
     Pattern.Match.fromJava(regex.find(tokens.asJava, start))
   }
 
+  def findAll(tokens: List[E]): Seq[Pattern.Match[E]] = {
+    regex.findAll(tokens.asJava).asScala map Pattern.Match.fromJava
+  }
+
   def lookingAt(tokens: List[E], start: Int = 0): Pattern.Match[E] = {
     Pattern.Match.fromJava(regex.lookingAt(tokens.asJava, start))
   }

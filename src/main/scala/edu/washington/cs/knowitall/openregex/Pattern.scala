@@ -43,12 +43,15 @@ object Pattern {
       !(p.expr.isInstanceOf[Expression.NonMatchingGroup[_]]))
 
     def group(name: String) = this.groups.find {
-      _.expr.isInstanceOf[Expression.NamedGroup[_]]
+      _.expr match {
+        case group: Expression.NamedGroup[_] => group.name == name
+        case _ => false
+      }
     }
   }
   object Match {
     def fromJava[E](m: JavaMatch[E]) = {
-      Match(m.tokens.asScala, m.pairs.asScala.map(Group.fromJava(_)), Interval.open(m.startIndex, m.endIndex))
+      Match(m.tokens.asScala, m.pairs.asScala.map(Group.fromJava(_)), Interval.open(m.startIndex, m.endIndex + 1))
     }
   }
 
@@ -57,7 +60,7 @@ object Pattern {
   }
   object Group {
     def fromJava[E](group: JavaMatch.Group[E]) = {
-      Group(group.expr, group.tokens.asScala, Interval.open(group.startIndex, group.endIndex))
+      Group(group.expr, group.tokens.asScala, Interval.open(group.startIndex, group.endIndex + 1))
     }
   }
 }

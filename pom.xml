@@ -42,12 +42,18 @@
     <dependency>
       <groupId>edu.washington.cs.knowitall</groupId>
       <artifactId>openregex</artifactId>
-      <version>1.0.2</version>
+      <version>1.0.3</version>
+    </dependency>
+    <!-- needed for transitive guava dependency -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>2.0.1</version>
     </dependency>
     <dependency>
       <groupId>edu.washington.cs.knowitall.common-scala</groupId>
       <artifactId>common-scala_2.9.2</artifactId>
-      <version>1.0.7</version>
+      <version>1.0.8</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -73,7 +79,7 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
         <configuration>
           <args>
             <arg>-deprecation</arg>
@@ -81,6 +87,12 @@
           </args>
         </configuration>
         <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
       <plugin>

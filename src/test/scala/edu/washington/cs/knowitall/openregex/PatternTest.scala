@@ -1,10 +1,10 @@
-package edu.washington.cs.knowitall.openregex
+package edu.knowitall.openregex
 
 import org.junit.runner.RunWith
-import edu.washington.cs.knowitall.regex.Expression.BaseExpression
-
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
+
+import edu.washington.cs.knowitall.regex.Expression.BaseExpression
 import edu.washington.cs.knowitall.logic.Expression.Arg
 
 @RunWith(classOf[JUnitRunner]) /** Real functionality tests are in openregex itself.

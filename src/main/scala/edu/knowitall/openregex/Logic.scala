@@ -1,4 +1,4 @@
-package edu.washington.cs.knowitall.openregex
+package edu.knowitall.openregex
 
 import edu.washington.cs.knowitall.logic.LogicExpression
 import edu.washington.cs.knowitall.logic.Expression.Arg

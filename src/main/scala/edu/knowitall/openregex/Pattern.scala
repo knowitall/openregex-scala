@@ -27,17 +27,17 @@ class Pattern[E](val regex: RegularExpression[E]) {
 }
 
 object Pattern {
-  def compile[E](string: String, factory: String=>BaseExpression[E]): Pattern[E] = {
+  def compile[E](string: String, factoryF: String=>BaseExpression[E]): Pattern[E] = {
     val regex = new RegularExpression[E](string) {
-      override def factory(string: String): BaseExpression[E] = factory(string)
+      override def factory(string: String): BaseExpression[E] = factoryF(string)
     }
 
     new Pattern(regex)
   }
 
-  def compile[E](string: String, factory: String=>BaseExpression[E], readToken: String=>String): Pattern[E] = {
+  def compile[E](string: String, factoryF: String=>BaseExpression[E], readToken: String=>String): Pattern[E] = {
     val regex = new RegularExpression[E](string) {
-      override def factory(string: String): BaseExpression[E] = factory(string)
+      override def factory(string: String): BaseExpression[E] = factoryF(string)
       override def readToken(string: String): String = readToken(string)
     }
 

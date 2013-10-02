@@ -10,17 +10,17 @@ class Logic[E](val logex: LogicExpression[E]) {
 }
 
 object Logic {
-  def compile[E](string: String, factory: String=>Arg[E]) = {
+  def compile[E](string: String, factoryF: String=>Arg[E]) = {
     val logex = new LogicExpression[E](string) {
-      override def factory(string: String) = factory(string)
+      override def factory(string: String) = factoryF(string)
     }
 
     new Logic(logex)
   }
 
-  def compile[E](string: String, factory: String=>Arg[E], readToken: String=>String) = {
+  def compile[E](string: String, factoryF: String=>Arg[E], readToken: String=>String) = {
     val logex = new LogicExpression[E](string) {
-      override def factory(string: String) = factory(string)
+      override def factory(string: String) = factoryF(string)
       override def readToken(string: String) = readToken(string)
     }
 

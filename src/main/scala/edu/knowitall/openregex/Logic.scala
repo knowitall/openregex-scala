@@ -11,9 +11,18 @@ class Logic[E](val logex: LogicExpression[E]) {
 
 object Logic {
   def compile[E](string: String, factory: String=>Arg[E]) = {
-    val logex = LogicExpression.compile(string, new GuavaFunction[String, Arg[E]]() {
-      override def apply(string: String) = factory(string)
-    })
+    val logex = new LogicExpression[E](string) {
+      override def factory(string: String) = factory(string)
+    }
+
+    new Logic(logex)
+  }
+
+  def compile[E](string: String, factory: String=>Arg[E], readToken: String=>String) = {
+    val logex = new LogicExpression[E](string) {
+      override def factory(string: String) = factory(string)
+      override def readToken(string: String) = readToken(string)
+    }
 
     new Logic(logex)
   }

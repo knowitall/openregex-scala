@@ -28,9 +28,18 @@ class Pattern[E](val regex: RegularExpression[E]) {
 
 object Pattern {
   def compile[E](string: String, factory: String=>BaseExpression[E]): Pattern[E] = {
-    val regex = RegularExpression.compile[E](string, new GuavaFunction[String, BaseExpression[E]]() {
-      override def apply(string: String): BaseExpression[E] = factory(string)
-    })
+    val regex = new RegularExpression[E](string) {
+      override def factory(string: String): BaseExpression[E] = factory(string)
+    }
+
+    new Pattern(regex)
+  }
+
+  def compile[E](string: String, factory: String=>BaseExpression[E], readToken: String=>String): Pattern[E] = {
+    val regex = new RegularExpression[E](string) {
+      override def factory(string: String): BaseExpression[E] = factory(string)
+      override def readToken(string: String): String = readToken(string)
+    }
 
     new Pattern(regex)
   }

@@ -5,10 +5,11 @@ import com.google.common.base.{ Function => GuavaFunction }
 import edu.knowitall.collection.immutable.Interval
 import edu.washington.cs.knowitall.regex.Expression.BaseExpression
 import edu.washington.cs.knowitall.regex.RegularExpression
+import edu.washington.cs.knowitall.regex.RegularExpressionParser
 import edu.washington.cs.knowitall.regex.{ Match => JavaMatch }
 import edu.washington.cs.knowitall.regex.Expression
 
-class Pattern[E](val regex: RegularExpression[E]) {
+case class Pattern[E](val regex: RegularExpression[E]) {
   def apply(tokens: Seq[E]): Boolean = regex(tokens.asJava)
 
   def matches(tokens: Seq[E]): Boolean = regex.matches(tokens.asJava)
@@ -26,22 +27,28 @@ class Pattern[E](val regex: RegularExpression[E]) {
   }
 }
 
+case class PatternParser[E](val parser: RegularExpressionParser[E]) {
+  def apply(string: String) = Pattern(parser(string))
+}
+
 object Pattern {
   def compile[E](string: String, factoryF: String=>BaseExpression[E]): Pattern[E] = {
-    val regex = new RegularExpression[E](string) {
-      override def factory(string: String): BaseExpression[E] = factoryF(string)
-    }
-
-    new Pattern(regex)
+    parser(factoryF).apply(string)
   }
 
-  def compile[E](string: String, factoryF: String=>BaseExpression[E], readToken: String=>String): Pattern[E] = {
-    val regex = new RegularExpression[E](string) {
+  def parser[E](factoryF: String=>BaseExpression[E]): PatternParser[E] = {
+    val parser = new RegularExpressionParser[E]() {
+      override def factory(string: String): BaseExpression[E] = factoryF(string)
+    }
+    new PatternParser(parser)
+  }
+
+  def parser[E](factoryF: String=>BaseExpression[E], readToken: String=>String): PatternParser[E] = {
+    val parser = new RegularExpressionParser[E]() {
       override def factory(string: String): BaseExpression[E] = factoryF(string)
       override def readToken(string: String): String = readToken(string)
     }
-
-    new Pattern(regex)
+    new PatternParser(parser)
   }
 
   case class Match[E](tokens: Seq[E], pairs: Seq[Group[E]], interval: Interval) {

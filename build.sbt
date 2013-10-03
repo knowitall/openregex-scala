@@ -10,7 +10,7 @@ resolvers ++= Seq()
 
 libraryDependencies ++= Seq("edu.washington.cs.knowitall" % "openregex" % "1.1.0",
     "com.google.code.findbugs" % "jsr305" % "2.0.1",
-    "edu.washington.cs.knowitall.common-scala" %% "common-scala" % "1.1.0",
+    "edu.washington.cs.knowitall.common-scala" %% "common-scala" % "1.1.2",
     "junit" % "junit" % "4.11",
     "org.specs2" %% "specs2" % "1.12.3",
     "org.scalacheck" %% "scalacheck" % "1.10.1")

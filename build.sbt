@@ -1,3 +1,5 @@
+organization := "edu.washington.cs.knowitall"
+
 name := "openregex-scala"
 
 version := "1.0.5-SNAPSHOT"

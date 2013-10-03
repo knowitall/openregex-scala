@@ -2,7 +2,7 @@ organization := "edu.washington.cs.knowitall"
 
 name := "openregex-scala"
 
-version := "1.0.5-SNAPSHOT"
+version := "1.1.0"
 
 scalaVersion := "2.10.2"
 

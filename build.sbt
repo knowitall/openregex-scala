@@ -10,7 +10,7 @@ crossScalaVersions := Seq("2.10.2", "2.9.3")
 
 resolvers ++= Seq()
 
-libraryDependencies ++= Seq("edu.washington.cs.knowitall" % "openregex" % "1.1.0",
+libraryDependencies ++= Seq("edu.washington.cs.knowitall" % "openregex" % "1.1.1",
     "com.google.code.findbugs" % "jsr305" % "2.0.1",
     "edu.washington.cs.knowitall.common-scala" %% "common-scala" % "1.1.2",
     "junit" % "junit" % "4.11",

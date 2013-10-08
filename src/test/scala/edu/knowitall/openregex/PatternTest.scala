@@ -28,7 +28,7 @@ class PatternTest extends Specification {
   "Matching group regular expression tests" should {
     val regex = Pattern.compile[String]("(<hello>?) (<foo>:<goodbye>*) <.>", deserialize _)
 
-    val m = regex.find(List("hello", "goodbye", "goodbye", "."))
+    val m = regex.find(List("hello", "goodbye", "goodbye", ".")).get
     m.groups(0).text == "hello"
     m.groups(1).text == "goodbye goodbye"
     m.group("foo").get.text == "goodbye goodbye"

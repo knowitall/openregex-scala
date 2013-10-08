@@ -14,8 +14,8 @@ case class Pattern[E](val regex: RegularExpression[E]) {
 
   def matches(tokens: Seq[E]): Boolean = regex.matches(tokens.asJava)
 
-  def find(tokens: Seq[E], start: Int = 0): Pattern.Match[E] = {
-    Pattern.Match.fromJava(regex.find(tokens.asJava, start))
+  def find(tokens: Seq[E], start: Int = 0): Option[Pattern.Match[E]] = {
+    Option(regex.find(tokens.asJava, start)) map Pattern.Match.fromJava
   }
 
   def findAll(tokens: Seq[E]): Seq[Pattern.Match[E]] = {

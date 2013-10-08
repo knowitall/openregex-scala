@@ -11,7 +11,6 @@ import edu.washington.cs.knowitall.logic.Expression.Arg
   *
   * @author schmmd
   */
-/*
 @RunWith(classOf[JUnitRunner])
 class PatternTest extends Specification {
   def deserialize(matcher: String) =
@@ -35,4 +34,3 @@ class PatternTest extends Specification {
     m.group("foo").get.text == "goodbye goodbye"
   }
 }
-*/

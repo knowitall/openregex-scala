@@ -10,7 +10,7 @@ import edu.washington.cs.knowitall.regex.{ Match => JavaMatch }
 import edu.washington.cs.knowitall.regex.Expression
 
 case class Pattern[E](val regex: RegularExpression[E]) {
-  def apply(tokens: Seq[E]): Boolean = regex(tokens.asJava)
+  def apply(tokens: Seq[E]): Boolean = this.matches(tokens)
 
   def matches(tokens: Seq[E]): Boolean = regex.matches(tokens.asJava)
 

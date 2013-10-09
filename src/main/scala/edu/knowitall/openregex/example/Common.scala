@@ -1,4 +1,4 @@
-package edu.knowitall.openregex
+package edu.knowitall.openregex.example
 
 object Common {
   val singleQuoteStringLiteralRegex = ("'" + """([^']*+)""" + "'").r

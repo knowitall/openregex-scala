@@ -1,13 +1,8 @@
-package edu.knowitall.openregex
+package edu.knowitall.openregex.example
 
-import scala.collection.JavaConverters._
-import com.google.common.base.{ Function => GuavaFunction }
-import edu.knowitall.collection.immutable.Interval
-import edu.washington.cs.knowitall.regex.Expression.BaseExpression
-import edu.washington.cs.knowitall.regex.RegularExpression
-import edu.washington.cs.knowitall.regex.RegularExpressionParser
-import edu.washington.cs.knowitall.regex.{ Match => JavaMatch }
-import edu.washington.cs.knowitall.regex.Expression
+import scala.Array.canBuildFrom
+
+import edu.knowitall.openregex.Logic
 import edu.washington.cs.knowitall.logic.Expression.Arg
 
 object LogicParsers {

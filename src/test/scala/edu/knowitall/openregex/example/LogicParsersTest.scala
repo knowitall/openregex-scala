@@ -1,11 +1,8 @@
-package edu.knowitall.openregex
+package edu.knowitall.openregex.example
 
 import org.junit.runner.RunWith
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
-
-import edu.washington.cs.knowitall.regex.Expression.BaseExpression
-import edu.washington.cs.knowitall.logic.Expression.Arg
 
 /**
   * Real functionality tests are in openregex itself.

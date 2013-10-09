@@ -25,4 +25,18 @@ object PatternParsers {
       }
     }
   }
+
+  // build a pattern against the public members of a class
+  // allow logic expressions within the token
+  def reflectionWithLogic[T] = {
+    val logicParser = LogicParsers.reflection[T]
+    Pattern.parser[T] { tokenString: String =>
+      new BaseExpression[T](tokenString) {
+        val logic = logicParser(tokenString)
+        override def apply(t: T): Boolean = {
+          logic(t)
+        }
+      }
+    }
+  }
 }

@@ -2,6 +2,7 @@ package edu.knowitall.openregex.example
 
 object Common {
   val singleQuoteStringLiteralRegex = ("'" + """([^']*+)""" + "'").r
+  val caseInsensitiveSingleQuoteStringLiteralRegex = ("i'" + """([^']*+)""" + "'").r
   val regexLiteralRegex = ("/" + """((?:[^/\\]*+(?:\\)*+(?:\\/)*+)*+)""" + "/").r
 
   /**
@@ -11,6 +12,8 @@ object Common {
     string match {
       case singleQuoteStringLiteralRegex(string) =>
         (that: String) => that == string
+      case caseInsensitiveSingleQuoteStringLiteralRegex(string) =>
+        (that: String) => that equalsIgnoreCase string
       case regexLiteralRegex(string) =>
         val unescapedString = string.replace("""\\""", """\""").replace("""\/""", "/")
         val regex = unescapedString.r

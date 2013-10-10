@@ -30,4 +30,15 @@ class LogicParsersTest extends Specification {
       logic(Point(3, 4)) must beFalse
     }
   }
+
+  case class Foo(x: String)
+  "x=i'AsDf'" should {
+    "be case insensitive" in {
+      val parser = LogicParsers.reflection[Foo]
+      val logic = parser("x=i'AsDf'")
+      logic(Foo("asdf")) must beTrue
+      logic(Foo("ASDF")) must beTrue
+      logic(Foo("qwer")) must beFalse
+    }
+  }
 }

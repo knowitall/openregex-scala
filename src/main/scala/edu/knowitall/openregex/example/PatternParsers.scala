@@ -11,17 +11,15 @@ object PatternParsers {
 
   // build a pattern against the public members of a class
   def reflection[T] = {
-    Pattern.parser[T] { string: String =>
-      new BaseExpression[T](string) {
-        val Array(base, quotedValue) = string.split("=").map(_.trim)
+    Pattern.parser[T] { (string: String) =>
+      val Array(base, quotedValue) = string.split("=").map(_.trim)
 
-        val compare = Common.unquote(quotedValue)
+      val compare = Common.unquote(quotedValue)
 
-        override def apply(t: T): Boolean = {
-          // see if we have a matching public field
-          val fieldValue = Common.publicValue(t, base).toString
-          compare(fieldValue)
-        }
+      (t: T) => {
+        // see if we have a matching public field
+        val fieldValue = Common.publicValue(t, base).toString
+        compare(fieldValue)
       }
     }
   }
@@ -30,12 +28,10 @@ object PatternParsers {
   // allow logic expressions within the token
   def reflectionWithLogic[T] = {
     val logicParser = LogicParsers.reflection[T]
-    Pattern.parser[T] { tokenString: String =>
-      new BaseExpression[T](tokenString) {
-        val logic = logicParser(tokenString)
-        override def apply(t: T): Boolean = {
-          logic(t)
-        }
+    Pattern.parser[T] { (tokenString: String) =>
+      val logic = logicParser(tokenString)
+      (t: T) => {
+        logic(t)
       }
     }
   }

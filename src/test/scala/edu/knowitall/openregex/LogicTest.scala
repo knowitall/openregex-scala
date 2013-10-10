@@ -14,8 +14,8 @@ import edu.washington.cs.knowitall.logic.Expression.Arg
 class LogicTest extends Specification {
   "Some logic expression" should {
     val logic = Logic.compile[Unit]("true & (true | !false)", (s: String) => s.toLowerCase match {
-      case "true" => new Arg.Value(true): Arg[Unit]
-      case "false" => new Arg.Value(false): Arg[Unit]
+      case "true" => (Unit) => true
+      case "false" => (Unit) => false
     })
 
     "be true" in {

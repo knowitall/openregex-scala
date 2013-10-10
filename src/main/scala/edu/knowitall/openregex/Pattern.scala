@@ -32,20 +32,26 @@ case class PatternParser[E](val parser: RegularExpressionParser[E]) {
 }
 
 object Pattern {
-  def compile[E](string: String, factoryF: String=>BaseExpression[E]): Pattern[E] = {
+  private def base[E](string: String, lambda: E=>Boolean) = {
+    new BaseExpression[E](string) {
+      override def apply(e: E) = lambda(e)
+    }
+  }
+
+  def compile[E](string: String, factoryF: String=>(E=>Boolean)): Pattern[E] = {
     parser(factoryF).apply(string)
   }
 
-  def parser[E](factoryF: String=>BaseExpression[E]): PatternParser[E] = {
+  def parser[E](factoryF: String=>(E=>Boolean)): PatternParser[E] = {
     val parser = new RegularExpressionParser[E]() {
-      override def factory(string: String): BaseExpression[E] = factoryF(string)
+      override def factory(string: String): BaseExpression[E] = base(string, factoryF(string))
     }
     new PatternParser(parser)
   }
 
-  def parser[E](factoryF: String=>BaseExpression[E], readToken: String=>String): PatternParser[E] = {
+  def parser[E](factoryF: String=>(E=>Boolean), readToken: String=>String): PatternParser[E] = {
     val parser = new RegularExpressionParser[E]() {
-      override def factory(string: String): BaseExpression[E] = factoryF(string)
+      override def factory(string: String): BaseExpression[E] = base(string, factoryF(string))
       override def readToken(string: String): String = readToken(string)
     }
     new PatternParser(parser)

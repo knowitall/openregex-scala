@@ -13,10 +13,9 @@ import edu.washington.cs.knowitall.logic.Expression.Arg
   */
 @RunWith(classOf[JUnitRunner])
 class PatternTest extends Specification {
-  def deserialize(matcher: String) =
-    new BaseExpression[String](matcher) {
-      override def apply(string: String) = string == matcher
-    }
+  def deserialize(matcher: String) = {
+    (string: String) => string == matcher
+  }
   "Basic regular expression tests" should {
     val regex = Pattern.compile[String]("<hello>? <goodbye>* <.>", deserialize _)
 

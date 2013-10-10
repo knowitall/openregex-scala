@@ -15,20 +15,28 @@ case class LogicParser[E](val parser: LogicExpressionParser[E]) {
 }
 
 object Logic {
-  def compile[E](string: String, factoryF: String=>Arg[E]): Logic[E] = {
+  private def arg[E](string: String, lambda: E=>Boolean) = {
+    new Arg.Pred[E](string) {
+      override def apply(e: E) = lambda(e)
+    }
+  }
+
+  def compile[E](string: String, factoryF: String=>(E=>Boolean)): Logic[E] = {
     this.parser(factoryF).apply(string)
   }
 
-  def parser[E](factoryF: String=>Arg[E]): LogicParser[E] = {
+  def parser[E](factoryF: String=>(E=>Boolean)): LogicParser[E] = {
     val parser = new LogicExpressionParser[E] {
-      override def factory(string: String) = factoryF(string)
+      override def factory(string: String) = {
+        arg(string, factoryF(string))
+      }
     }
     new LogicParser(parser)
   }
 
-  def parser[E](factoryF: String=>Arg[E], readToken: String=>String): LogicParser[E] = {
+  def parser[E](factoryF: String=>(E=>Boolean), readToken: String=>String): LogicParser[E] = {
     val parser = new LogicExpressionParser[E] {
-      override def factory(string: String) = factoryF(string)
+      override def factory(string: String) = arg(string, factoryF(string))
       override def readToken(string: String) = readToken(string)
     }
     new LogicParser(parser)

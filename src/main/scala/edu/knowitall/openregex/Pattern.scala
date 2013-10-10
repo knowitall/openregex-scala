@@ -14,6 +14,10 @@ case class Pattern[E](val regex: RegularExpression[E]) {
 
   def matches(tokens: Seq[E]): Boolean = regex.matches(tokens.asJava)
 
+  def `match`(tokens: Seq[E]): Option[Pattern.Match[E]] = {
+    Option(regex.`match`(tokens.asJava)) map Pattern.Match.fromJava
+  }
+
   def find(tokens: Seq[E], start: Int = 0): Option[Pattern.Match[E]] = {
     Option(regex.find(tokens.asJava, start)) map Pattern.Match.fromJava
   }
@@ -24,6 +28,11 @@ case class Pattern[E](val regex: RegularExpression[E]) {
 
   def lookingAt(tokens: Seq[E], start: Int = 0): Pattern.Match[E] = {
     Pattern.Match.fromJava(regex.lookingAt(tokens.asJava, start))
+  }
+
+  def unapplySeq(tokens: Seq[E]): Option[List[String]] = {
+    // drop group 0--the whole match
+    this.`match`(tokens).map(_.groups.map(_.text).toList.drop(1))
   }
 }
 

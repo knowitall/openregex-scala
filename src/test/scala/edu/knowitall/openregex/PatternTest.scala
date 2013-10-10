@@ -32,4 +32,17 @@ class PatternTest extends Specification {
     m.groups(1).text == "goodbye goodbye"
     m.group("foo").get.text == "goodbye goodbye"
   }
+
+  "Pattern extractor works" should {
+    val regex = Pattern.compile[String]("(<hello>) <no> <way> (<goodbye>)", deserialize _)
+
+    val list = List("hello", "no", "way", "goodbye")
+
+    val result = list match {
+      case regex(greeting, farewell) => greeting == "hello" && farewell == "goodbye"
+      case _ => false
+    }
+
+    result must beTrue
+  }
 }

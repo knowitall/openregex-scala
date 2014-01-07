@@ -13,7 +13,7 @@ resolvers ++= Seq()
 libraryDependencies ++= Seq("edu.washington.cs.knowitall" % "openregex" % "1.1.1",
     "com.google.code.findbugs" % "jsr305" % "2.0.1",
     "edu.washington.cs.knowitall.common-scala" %% "common-scala" % "1.1.2",
-    "junit" % "junit" % "4.11",
+    "junit" % "junit" % "4.11" % "test",
     "org.scalacheck" %% "scalacheck" % "1.10.1" % "test",
     "org.specs2" % "specs2" % "1.12.3" % "test" cross CrossVersion.binaryMapped {
       case "2.9.3" => "2.9.2"
